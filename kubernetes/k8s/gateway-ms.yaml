@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-ms
+spec:
+  selector:
+    matchLabels:
+      app: gateway-ms
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway-ms
+    spec:
+      containers:
+        - name: gateway-ms
+          image: imrds7/gateway-ms:latest
+          ports:
+            - containerPort: 8084
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-ms
+spec:
+  ports:
+    - port: 8084
+      nodePort: 30084
+  type: NodePort
+  selector:
+    app: gateway-ms

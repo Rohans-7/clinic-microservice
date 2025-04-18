@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment
+spec:
+  selector:
+    matchLabels:
+      app: appointment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: appointment
+    spec:
+      containers:
+        - name: appointment
+          image: imrds7/appointmentms:latest
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment
+spec:
+  ports:
+    - port: 8083
+  selector:
+    app: appointment

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient
+spec:
+  selector:
+    matchLabels:
+      app: patient
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: patient
+    spec:
+      containers:
+        - name: patient
+          image: imrds7/patientms:latest
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient
+spec:
+  ports:
+    - port: 8082
+  selector:
+    app: patient

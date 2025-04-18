@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctor
+spec:
+  selector:
+    matchLabels:
+      app: doctor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: doctor
+    spec:
+      containers:
+        - name: doctor
+          image: imrds7/doctorms:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+          volumeMounts:
+            - name: logs
+              mountPath: /logs/doctorms
+      volumes:
+        - name: logs
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: doctor
+spec:
+  ports:
+    - port: 8081
+  selector:
+    app: doctor

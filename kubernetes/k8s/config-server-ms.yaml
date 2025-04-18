@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-ms
+spec:
+  selector:
+    matchLabels:
+      app: config-server-ms
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: config-server-ms
+    spec:
+      containers:
+        - name: config-server-ms
+          image: imrds7/config-server-ms:latest
+          ports:
+            - containerPort: 8090
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server-ms
+spec:
+  ports:
+    - port: 8090
+  selector:
+    app: config-server-ms
