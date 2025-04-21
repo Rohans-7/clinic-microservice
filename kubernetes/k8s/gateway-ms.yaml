@@ -1,12 +1,14 @@
+---
+# Gateway Microservice Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gateway-ms
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: gateway-ms
-  replicas: 1
   template:
     metadata:
       labels:
@@ -20,15 +22,18 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: k8s
+
 ---
+# Gateway Microservice NodePort Service
 apiVersion: v1
 kind: Service
 metadata:
   name: gateway-ms
 spec:
-  ports:
-    - port: 8084
-      nodePort: 30084
   type: NodePort
   selector:
     app: gateway-ms
+  ports:
+    - port: 8084
+      targetPort: 8084
+      nodePort: 30085  # You can choose any port in 30000-32767
