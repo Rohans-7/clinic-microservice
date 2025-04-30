@@ -1,0 +1,28 @@
+---
+- name: Apply Kubernetes manifests individually
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Apply postgres - database manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/postgres.yaml
+
+    - name: Apply pgadmin manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/pgadmin.yaml
+
+    - name: Apply patient-service manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/patientms.yaml
+
+    - name: Apply doctor-service manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/doctorms.yaml
+
+    - name: Apply appointment-service manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/appointmentms.yaml
+
+    - name: Apply gateway manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/gateway-ms.yaml
+
+    - name: Apply Prometheus manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/prometheus.yaml
+
+    - name: Apply Grafana manifest
+      command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/grafana.yaml
