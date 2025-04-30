@@ -1,7 +1,8 @@
 ---
 - name: Apply Kubernetes manifests individually
   hosts: localhost
-  become: true
+  remote_user: rohan-sonawane
+  become: false
   tasks:
     - name: Apply postgres - database manifest
       command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/postgres.yaml
