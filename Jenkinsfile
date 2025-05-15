@@ -20,6 +20,18 @@ pipeline {
             }
         }
 
+        stage('Build pulled code') {
+            steps {
+                script {
+                    sh '''
+                        cd doctor-service && mvn clean install -DskipTests
+                        cd patient-service && mvn clean install -DskipTests
+                        cd appointment-service && mvn clean install -DskipTests
+                    '''
+                }
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 script {
