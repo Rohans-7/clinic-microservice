@@ -21,6 +21,7 @@ public class DoctorService {
                         .id(doc.getId())
                         .name(doc.getName())
                         .specialty(doc.getSpecialty())
+                        .email(doc.getEmail())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -31,6 +32,7 @@ public class DoctorService {
                         .id(doc.getId())
                         .name(doc.getName())
                         .specialty(doc.getSpecialty())
+                        .email(doc.getEmail())
                         .build())
                 .orElse(null);
     }
@@ -39,6 +41,7 @@ public class DoctorService {
         Doctor saved = repository.save(Doctor.builder()
                 .name(dto.getName())
                 .specialty(dto.getSpecialty())
+                        .email(dto.getEmail())
                 .build());
 
         dto.setId(saved.getId());

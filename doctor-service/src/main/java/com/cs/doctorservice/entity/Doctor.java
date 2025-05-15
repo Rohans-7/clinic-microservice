@@ -15,5 +15,7 @@ public class Doctor {
 
     private String name;
     private String specialty;
+    private String email;
+    private String password;
 }
 
