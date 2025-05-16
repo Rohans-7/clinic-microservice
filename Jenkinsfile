@@ -35,6 +35,21 @@ pipeline {
             }
         }
 
+        stage('Scan Docker Images with Trivy') {
+            steps {
+                script {
+                    echo "Scanning doctor-service image..."
+                    sh "trivy image ${DOCTOR_DOCKER_IMAGE} || true"
+
+                    echo "Scanning patient-service image..."
+                    sh "trivy image ${PATIENT_DOCKER_IMAGE} || true"
+
+                    echo "Scanning appointment-service image..."
+                    sh "trivy image ${APPOINTMENT_DOCKER_IMAGE} || true"
+                }
+            }
+        }
+
         stage('Push Docker Images') {
             steps {
                 script {
