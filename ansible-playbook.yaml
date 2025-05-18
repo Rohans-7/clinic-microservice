@@ -27,3 +27,6 @@
 
     - name: Apply Grafana manifest
       command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/grafana.yaml
+
+    - name: Apply Zipkin manifest
+      command: kubectl apply -f {{ playbook_dir}}/kubernetes/k8s/zipkin.yaml
