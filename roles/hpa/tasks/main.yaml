@@ -1,0 +1,3 @@
+---
+- name: Apply doctor HPA manifest
+  command: kubectl apply -f {{ playbook_dir }}/kubernetes/k8s/doctor-hpa.yaml
