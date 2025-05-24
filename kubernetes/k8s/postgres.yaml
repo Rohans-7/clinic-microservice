@@ -21,7 +21,10 @@ spec:
             - name: POSTGRES_USER
               value: "admin"
             - name: POSTGRES_PASSWORD
-              value: "admin"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
             - name: PGDATA
               value: "/data/postgres"
           volumeMounts:
@@ -41,3 +44,11 @@ spec:
     - port: 5432
   selector:
     app: postgres
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+type: Opaque
+data:
+  POSTGRES_PASSWORD: YWRtaW4=  # base64 encoded "admin"
