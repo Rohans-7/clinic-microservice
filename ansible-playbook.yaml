@@ -6,6 +6,7 @@
   roles:
     - database
     - pgadmin
+    - redis
     - patient_service
     - doctor_service
     - appointment_service
