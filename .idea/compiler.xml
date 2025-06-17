@@ -8,17 +8,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="patient-service" />
+        <module name="auth-service" />
         <module name="appointment-service" />
+        <module name="doctor-service" />
+        <module name="patient-service" />
         <module name="eureka-server" />
         <module name="gateway" />
-        <module name="doctor-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="appointment-service" options="-parameters" />
+      <module name="auth-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="doctor-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />

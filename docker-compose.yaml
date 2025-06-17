@@ -30,95 +30,95 @@ services:
       - clinic-net
     restart: unless-stopped
 
-  config-server-ms:
-    image: imrds7/config-server-ms:latest
-    container_name: config-server-ms
-    ports:
-      - 8080:8080
-    depends_on:
-      - servicereg
-    networks:
-      - microservice-network
-      - clinic-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  servicereg:
-    image: imrds7/servicereg:latest
-    container_name: servicereg
-    ports:
-      - "8761:8761"
-    depends_on:
-      - zipkin
-      - postgres
-      - pgadmin
-    networks:
-      - microservice-network
-      - clinic-net
-
-  appointmentms:
-    image: imrds7/appointmentms:latest
-    container_name: appointment
-    ports:
-      - 8083:8083
-    depends_on:
-      - servicereg
-      - config-server-ms
-    networks:
-      - microservice-network
-      - clinic-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  doctorms:
-    image: imrds7/doctorms:latest
-    container_name: doctor
-    ports:
-      - 8081:8081
-    depends_on:
-      - servicereg
-      - config-server-ms
-    networks:
-      - microservice-network
-      - clinic-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka
-
-  patientms:
-    image: imrds7/patientms:latest
-    container_name: patient
-    ports:
-      - 8082:8082
-    depends_on:
-      - servicereg
-      - config-server-ms
-    networks:
-      - microservice-network
-      - clinic-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - 9411:9411
-    networks:
-      - clinic-net
-      - microservice-network
-
-  gateway-ms:
-    image: imrds7/gateway-ms:latest
-    ports:
-      - 8084:8084
-    depends_on:
-      - servicereg
-    networks:
-      - microservice-network
-      - clinic-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+#  config-server-ms:
+#    image: imrds7/config-server-ms:latest
+#    container_name: config-server-ms
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - servicereg
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#
+#  servicereg:
+#    image: imrds7/servicereg:latest
+#    container_name: servicereg
+#    ports:
+#      - "8761:8761"
+#    depends_on:
+#      - zipkin
+#      - postgres
+#      - pgadmin
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#
+#  appointmentms:
+#    image: imrds7/appointmentms:latest
+#    container_name: appointment
+#    ports:
+#      - 8083:8083
+#    depends_on:
+#      - servicereg
+#      - config-server-ms
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#
+#  doctorms:
+#    image: imrds7/doctorms:latest
+#    container_name: doctor
+#    ports:
+#      - 8081:8081
+#    depends_on:
+#      - servicereg
+#      - config-server-ms
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka
+#
+#  patientms:
+#    image: imrds7/patientms:latest
+#    container_name: patient
+#    ports:
+#      - 8082:8082
+#    depends_on:
+#      - servicereg
+#      - config-server-ms
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name: zipkin
+#    ports:
+#      - 9411:9411
+#    networks:
+#      - clinic-net
+#      - microservice-network
+#
+#  gateway-ms:
+#    image: imrds7/gateway-ms:latest
+#    ports:
+#      - 8084:8084
+#    depends_on:
+#      - servicereg
+#    networks:
+#      - microservice-network
+#      - clinic-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
 #  eureka-server:
 #    image: openjdk:17
 #    container_name: eureka-server
