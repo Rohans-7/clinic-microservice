@@ -5,15 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.NotBlank;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthResponse {
-    private String token;
-    private String type = "Bearer";
+public class LoginRequest {
+    @NotBlank(message = "Username is required")
     private String username;
-    private String email;
-    private String role;
-    private Long expiresIn;
+
+    @NotBlank(message = "Password is required")
+    private String password;
 }
